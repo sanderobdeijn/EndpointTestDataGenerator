@@ -4,12 +4,10 @@ using Refit;
 
 namespace EndpointTestDataGenerator;
 
-public class BaseTestScenarioGenerator
+public static class WebApplicationFactoryExtensions
 {
-    protected static WebApplicationFactory<T> CreateApplication<T>()
-        where T : class => new();
     
-    protected static IEnumerable<TestScenario> GetGeneratedTestScenarios<TA, TC>(WebApplicationFactory<TA> application)
+    public static IEnumerable<TestScenario> Include<TA, TC>(this WebApplicationFactory<TA> application)
         where TA : class
         where TC : class
     {

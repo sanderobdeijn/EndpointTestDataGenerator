@@ -5,9 +5,9 @@ namespace EndpointTestDataGenerator.Sample.Client;
 
 public interface IApi
 {
-    [Get("/WeatherForecast")]
+    [Get("/Test")]
     Task<IEnumerable<WeatherForecast>> Get();
     
-    [Get("/WeatherForecast/Test/{input}")]
+    [Get("/Test/{input}")]
     Task<string> GetTest(string input);
 }

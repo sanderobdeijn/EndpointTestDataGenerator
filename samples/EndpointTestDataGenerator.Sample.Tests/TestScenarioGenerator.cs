@@ -4,25 +4,19 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace EndpointTestDataGenerator.Sample.Tests;
 
-public class TestScenarioGenerator : BaseTestScenarioGenerator, IEnumerable<object[]>
+public class TestScenarioGenerator : IEnumerable<object[]>
 {
-    private static readonly List<object[]> Data;
-
-    static TestScenarioGenerator()
+    private static IEnumerable<object[]> GetGeneratedTestScenarios()
     {
-        Data = GetGeneratedTestScenarios().Select(s => new object[] { s }).ToList();
+        var application = new WebApplicationFactory<Program>();
+
+        foreach (var scenario in application.Include<Program, IApi>().Format())
+        {
+            yield return scenario;
+        }
     }
 
-    private static IEnumerable<TestScenario> GetGeneratedTestScenarios()
-    {
-        var application = CreateApplication<Program>();
-
-        var testScenarios = GetGeneratedTestScenarios<Program, IApi>(application);
-
-        return testScenarios;
-    }
-
-    public IEnumerator<object[]> GetEnumerator() => Data.GetEnumerator();
+    public IEnumerator<object[]> GetEnumerator() => GetGeneratedTestScenarios().GetEnumerator();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 }

@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndpointTestDataGenerator", "src\EndpointTestDataGenerator\EndpointTestDataGenerator.csproj", "{A61A266C-CB9F-4A90-9EA2-81DC02521C7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndpointTestDataGenerator.Tests", "src\EndpointTestDataGenerator.Tests\EndpointTestDataGenerator.Tests.csproj", "{B788FBE9-C630-427C-9AA5-9BA19F791790}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{382644D2-58DE-4F31-8A5D-82EB17B9F167}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{89B52291-1098-4218-A801-9394D2EFBA64}"
@@ -16,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndpointTestDataGenerator.Sample.Client", "samples\EndpointTestDataGenerator.Sample.Client\EndpointTestDataGenerator.Sample.Client.csproj", "{41EE8DFE-07A9-47F4-A5F9-4F8C1A0BC415}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndpointTestDataGenerator.Sample.Tests", "samples\EndpointTestDataGenerator.Sample.Tests\EndpointTestDataGenerator.Sample.Tests.csproj", "{D5E0AB9C-B904-487C-9108-C3D7E0A0A803}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndpointTestDataGenerator.Tests", "src\EndpointTestDataGenerator.Tests\EndpointTestDataGenerator.Tests.csproj", "{B48DACA0-5329-4C54-A04E-B4B402696120}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,10 +30,6 @@ Global
 		{A61A266C-CB9F-4A90-9EA2-81DC02521C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A61A266C-CB9F-4A90-9EA2-81DC02521C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A61A266C-CB9F-4A90-9EA2-81DC02521C7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B788FBE9-C630-427C-9AA5-9BA19F791790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B788FBE9-C630-427C-9AA5-9BA19F791790}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B788FBE9-C630-427C-9AA5-9BA19F791790}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B788FBE9-C630-427C-9AA5-9BA19F791790}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C21BB1EF-D723-4E0E-ACA3-DB5BFA2845A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C21BB1EF-D723-4E0E-ACA3-DB5BFA2845A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C21BB1EF-D723-4E0E-ACA3-DB5BFA2845A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,12 +42,16 @@ Global
 		{D5E0AB9C-B904-487C-9108-C3D7E0A0A803}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5E0AB9C-B904-487C-9108-C3D7E0A0A803}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5E0AB9C-B904-487C-9108-C3D7E0A0A803}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B48DACA0-5329-4C54-A04E-B4B402696120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B48DACA0-5329-4C54-A04E-B4B402696120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B48DACA0-5329-4C54-A04E-B4B402696120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B48DACA0-5329-4C54-A04E-B4B402696120}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A61A266C-CB9F-4A90-9EA2-81DC02521C7C} = {382644D2-58DE-4F31-8A5D-82EB17B9F167}
-		{B788FBE9-C630-427C-9AA5-9BA19F791790} = {382644D2-58DE-4F31-8A5D-82EB17B9F167}
 		{C21BB1EF-D723-4E0E-ACA3-DB5BFA2845A2} = {89B52291-1098-4218-A801-9394D2EFBA64}
 		{41EE8DFE-07A9-47F4-A5F9-4F8C1A0BC415} = {89B52291-1098-4218-A801-9394D2EFBA64}
 		{D5E0AB9C-B904-487C-9108-C3D7E0A0A803} = {89B52291-1098-4218-A801-9394D2EFBA64}
+		{B48DACA0-5329-4C54-A04E-B4B402696120} = {382644D2-58DE-4F31-8A5D-82EB17B9F167}
 	EndGlobalSection
 EndGlobal

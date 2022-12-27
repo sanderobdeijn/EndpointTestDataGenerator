@@ -1,6 +1,4 @@
-using FluentAssertions;
-
-namespace EndpointTestDataGenerator.Tests;
+﻿namespace EndpointTestDataGenerator.Tests;
 
 public class ArgumentsTests
 {

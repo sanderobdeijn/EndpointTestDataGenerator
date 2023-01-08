@@ -26,7 +26,7 @@ $artifacts = ".\artifacts"
 
 exec { & dotnet clean -c Release }
 
-exec { & dotnet build -c Release /p:AssemblyVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:FileVersion=${{ steps.gitversion.outputs.assemblySemFileVer }} /p:InformationalVersion=${{ steps.gitversion.outputs.Sha }} }
+exec { & dotnet build -c Release /p:AssemblyVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:FileVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:InformationalVersion=${ steps.gitversion.outputs.Sha } }
 
 exec { & dotnet test -c Release --no-build -l trx --verbosity=normal }
 

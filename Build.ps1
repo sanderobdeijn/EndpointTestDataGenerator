@@ -28,6 +28,6 @@ exec { & dotnet clean -c Release }
 
 exec { & dotnet build -c Release /p:AssemblyVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:FileVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:InformationalVersion=${ steps.gitversion.outputs.Sha } }
 
-exec { & dotnet test -c Release --no-build -l trx --verbosity=normal }
+exec { & dotnet test -c Release --no-build -l trx --verbosity=normal /p:AssemblyVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:FileVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:InformationalVersion=${ steps.gitversion.outputs.Sha } }
 
-exec { & dotnet pack .\src\EndpointTestDataGenerator\EndpointTestDataGenerator.csproj -c Release -o $artifacts --no-build }
+exec { & dotnet pack .\src\EndpointTestDataGenerator\EndpointTestDataGenerator.csproj -c Release -o $artifacts --no-build /p:AssemblyVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:FileVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:InformationalVersion=${ steps.gitversion.outputs.Sha }  }

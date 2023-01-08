@@ -23,13 +23,13 @@ function Exec
 }
 
 $artifacts = ".\artifacts"
-
-if(Test-Path $artifacts) { Remove-Item $artifacts -Force -Recurse }
+# 
+# if(Test-Path $artifacts) { Remove-Item $artifacts -Force -Recurse }
 
 exec { & dotnet clean -c Release }
 
 exec { & dotnet build -c Release }
 
-exec { & dotnet test -c Release -r $artifacts --no-build -l trx --verbosity=normal }
+exec { & dotnet test -c Release --no-build -l trx --verbosity=normal }
 
 exec { & dotnet pack .\src\EndpointTestDataGenerator\EndpointTestDataGenerator.csproj -c Release -o $artifacts --no-build }

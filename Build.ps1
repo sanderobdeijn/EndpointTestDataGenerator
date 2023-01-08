@@ -23,8 +23,6 @@ function Exec
 }
 
 $artifacts = ".\artifacts"
-# 
-# if(Test-Path $artifacts) { Remove-Item $artifacts -Force -Recurse }
 
 exec { & dotnet clean -c Release }
 

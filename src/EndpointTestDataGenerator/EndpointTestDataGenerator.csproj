@@ -12,7 +12,7 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
 
         <MinVerTagPrefix>v</MinVerTagPrefix>
-        <PackageLicenseExpression>GPL-3.0</PackageLicenseExpression>
+        <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -20,7 +20,6 @@
         <Deterministic>true</Deterministic>
         <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
 
-        <BaselineAllAPICompatError>true</BaselineAllAPICompatError>
         <AdditionalApiCompatOptions>--exclude-non-browsable --exclude-compiler-generated</AdditionalApiCompatOptions>
     </PropertyGroup>
 

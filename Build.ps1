@@ -33,4 +33,5 @@ exec { & dotnet build -c Release /p:AssemblyVersion=$assemblyVersion /p:FileVers
 
 exec { & dotnet test -c Release --no-build -l trx --verbosity=normal /p:AssemblyVersion=$assemblyVersion /p:FileVersion=$assemblyVersion /p:InformationalVersion=$sha }
 
+$packageVersion
 exec { & dotnet pack .\src\EndpointTestDataGenerator\EndpointTestDataGenerator.csproj -c Release -o $artifacts --no-build /p:PackageVersion=$packageVersion }

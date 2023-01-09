@@ -23,11 +23,13 @@ function Exec
 }
 
 $artifacts = ".\artifacts"
+$assemblyVersion = ${ steps.gitversion.outputs.assemblySemFileVer }
+$sha = ${ steps.gitversion.outputs.Sha }
 
 exec { & dotnet clean -c Release }
 
-exec { & dotnet build -c Release /p:AssemblyVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:FileVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:InformationalVersion=${ steps.gitversion.outputs.Sha } }
+exec { & dotnet build -c Release /p:AssemblyVersion=$assemblyVersion /p:FileVersion=$assemblyVersion /p:InformationalVersion=$sha }
 
-exec { & dotnet test -c Release --no-build -l trx --verbosity=normal /p:AssemblyVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:FileVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:InformationalVersion=${ steps.gitversion.outputs.Sha } }
+exec { & dotnet test -c Release --no-build -l trx --verbosity=normal /p:AssemblyVersion=$assemblyVersion /p:FileVersion=$assemblyVersion /p:InformationalVersion=$sha }
 
-exec { & dotnet pack .\src\EndpointTestDataGenerator\EndpointTestDataGenerator.csproj -c Release -o $artifacts --no-build /p:AssemblyVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:FileVersion=${ steps.gitversion.outputs.assemblySemFileVer } /p:InformationalVersion=${ steps.gitversion.outputs.Sha }  }
+exec { & dotnet pack .\src\EndpointTestDataGenerator\EndpointTestDataGenerator.csproj -c Release -o $artifacts --no-build /p:AssemblyVersion=$assemblyVersion /p:FileVersion=$assemblyVersion /p:PackageVersion=$assemblyVersion /p:InformationalVersion=$sha }

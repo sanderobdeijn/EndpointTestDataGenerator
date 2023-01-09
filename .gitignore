@@ -2,3 +2,6 @@ bin
 obj
 .idea
 *.user
+*.nupkg
+*.snupkg
+*.trx

@@ -21,6 +21,7 @@
         <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
 
         <AdditionalApiCompatOptions>--exclude-non-browsable --exclude-compiler-generated</AdditionalApiCompatOptions>
+        <Version>0.1.1</Version>
     </PropertyGroup>
 
     <ItemGroup>
@@ -31,9 +32,5 @@
         <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.12" />
         <PackageReference Include="Refit" Version="6.3.2" />
     </ItemGroup>
-
-    <Target Name="PreBuild" AfterTargets="GetAssemblyVersion">
-        <Exec Condition=" '$(OS)' == 'Windows_NT' " Command="powershell -ExecutionPolicy Unrestricted -File &quot;$(ProjectDir)ApiCompat\PreBuild.ps1&quot; -version $(Version)" />
-    </Target>
     
 </Project>

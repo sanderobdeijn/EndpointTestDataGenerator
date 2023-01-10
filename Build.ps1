@@ -23,15 +23,12 @@ function Exec
 }
 
 $artifacts = ".\artifacts"
-$assemblyVersion = "${ steps.gitversion.outputs.assemblySemFileVer }"
-$sha = ${ steps.gitversion.outputs.Sha }
-$packageVersion = "${ steps.gitversion.outputs.NuGetVersionV2 }"
 
 exec { & dotnet clean -c Release }
 
-exec { & dotnet build -c Release /p:AssemblyVersion=$assemblyVersion /p:FileVersion=$assemblyVersion /p:InformationalVersion=$sha }
+exec { & dotnet build -c Release }
 
-exec { & dotnet test -c Release --no-build -l trx --verbosity=normal /p:AssemblyVersion=$assemblyVersion /p:FileVersion=$assemblyVersion /p:InformationalVersion=$sha }
+exec { & dotnet test -c Release --no-build -l trx --verbosity=normal }
 
 echo $packageVersion
-exec { & dotnet pack .\src\EndpointTestDataGenerator\EndpointTestDataGenerator.csproj -c Release -o $artifacts --no-build /p:PackageVersion=$packageVersion }
+exec { & dotnet pack .\src\EndpointTestDataGenerator\EndpointTestDataGenerator.csproj -c Release -o $artifacts --no-build }

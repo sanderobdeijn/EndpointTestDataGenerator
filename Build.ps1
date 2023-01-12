@@ -26,7 +26,7 @@ $artifacts = ".\artifacts"
 echo "Version: ${ GitVersion_NuGetVersion }"
 # exec { & dotnet clean -c Release }
 
-# exec { & dotnet build src/EndpointTestDataGenerator/EndpointTestDataGenerator.csproj  -c Release /p:Version=${ steps.gitversion.outputs.nuGetVersion } }
+# exec { & dotnet build src/EndpointTestDataGenerator/EndpointTestDataGenerator.csproj  -c Release /p:Version=${ GitVersion_NuGetVersion } }
 # 
 # exec { & dotnet test -c Release --no-build -l trx --verbosity=normal }
 # 

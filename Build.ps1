@@ -23,7 +23,7 @@ function Exec
 }
 
 $artifacts = ".\artifacts"
-echo "Version: ${ steps.gitversion.outputs.nuGetVersion }"
+echo "Version: ${ GitVersion_NuGetVersion }"
 # exec { & dotnet clean -c Release }
 
 # exec { & dotnet build src/EndpointTestDataGenerator/EndpointTestDataGenerator.csproj  -c Release /p:Version=${ steps.gitversion.outputs.nuGetVersion } }

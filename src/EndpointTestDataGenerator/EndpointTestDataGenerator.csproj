@@ -21,7 +21,7 @@
         <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
 
         <AdditionalApiCompatOptions>--exclude-non-browsable --exclude-compiler-generated</AdditionalApiCompatOptions>
-        <Version>0.1.1</Version>
+<!--        <Version>0.1.1</Version>-->
     </PropertyGroup>
 
     <ItemGroup>

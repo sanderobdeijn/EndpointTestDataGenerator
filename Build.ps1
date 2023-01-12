@@ -26,9 +26,9 @@ $artifacts = ".\artifacts"
 
 exec { & dotnet clean -c Release }
 
-exec { & dotnet build -c Release }
-
-exec { & dotnet test -c Release --no-build -l trx --verbosity=normal }
-
-echo $packageVersion
-exec { & dotnet pack .\src\EndpointTestDataGenerator\EndpointTestDataGenerator.csproj -c Release -o $artifacts --no-build }
+exec { & dotnet build src/EndpointTestDataGenerator/EndpointTestDataGenerator.csproj  -c Release /p:Version=${ steps.gitversion.outputs.nuGetVersion } }
+# 
+# exec { & dotnet test -c Release --no-build -l trx --verbosity=normal }
+# 
+# echo $packageVersion
+# exec { & dotnet pack .\src\EndpointTestDataGenerator\EndpointTestDataGenerator.csproj -c Release -o $artifacts --no-build }

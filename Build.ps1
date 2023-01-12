@@ -23,11 +23,11 @@ function Exec
 }
 
 $artifacts = ".\artifacts"
-echo $Env:GitVersion_NuGetVersion
-# exec { & dotnet clean -c Release }
 
-# exec { & dotnet build src/EndpointTestDataGenerator/EndpointTestDataGenerator.csproj  -c Release /p:Version=${ GitVersion_NuGetVersion } }
-# 
+exec { & dotnet clean -c Release }
+
+exec { & dotnet build src/EndpointTestDataGenerator/EndpointTestDataGenerator.csproj  -c Release /p:Version=$Env:GitVersion_NuGetVersion } }
+
 # exec { & dotnet test -c Release --no-build -l trx --verbosity=normal }
 # 
 # echo $packageVersion

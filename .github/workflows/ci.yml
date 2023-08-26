@@ -74,3 +74,5 @@ jobs:
         if: ${{ always() }}
       - name: Create the package
         run: dotnet pack --configuration Release /p:Version=${{ steps.gitversion.outputs.nuGetVersion }} ./src/EndpointTestDataGenerator/EndpointTestDataGenerator.csproj
+      - name: Publish the package to GPR
+        run: dotnet nuget push ./src/EndpointTestDataGenerator/bin/Release/*.nupkg

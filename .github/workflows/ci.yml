@@ -73,4 +73,4 @@ jobs:
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
       - name: Create the package
-        run: dotnet pack --configuration Release src/EndpointTestDataGenerator/EndpointTestDataGenerator.csproj
+        run: dotnet pack --configuration Release /p:Version=${VERSION} --no-build --output src/EndpointTestDataGenerator/EndpointTestDataGenerator.csproj

@@ -82,4 +82,4 @@ jobs:
         run: dotnet pack --configuration Release /p:Version=${{ steps.gitversion.outputs.nuGetVersion }} ./src/EndpointTestDataGenerator/EndpointTestDataGenerator.csproj --output ${{ env.NuGetDirectory }}
       - name: Publish NuGet package
         run: |
-          dotnet nuget push "${{ env.NuGetDirectory }}*.nupkg" --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          dotnet nuget push "${{ env.NuGetDirectory }}/*.nupkg" --api-key "${{ secrets.NUGET_APIKEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate

@@ -82,7 +82,7 @@ jobs:
         run: dotnet pack --configuration Release /p:Version=${{ steps.gitversion.outputs.nuGetVersion }} ./src/EndpointTestDataGenerator/EndpointTestDataGenerator.csproj --output ${{ env.NuGetDirectory }}
       - name: Publish NuGet package
         run: |
-          foreach($file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
+          foreach(file in (Get-ChildItem "${{ env.NuGetDirectory }}" -Recurse -Include *.nupkg)) {
               echo $file
               # dotnet nuget push $file --api-key "${{ secrets.NUGET_AUTH_TOKEN }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
           }

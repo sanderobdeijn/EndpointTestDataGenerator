@@ -44,7 +44,7 @@ jobs:
         uses: gittools/actions/gitversion/execute@v0.10.2
         with:
           useConfigFile: true
-      - name: Display GitVersion outputs (step output with prefix)
+      - name: Display GitVersion outputs
         run: |
           echo "Major: ${{ steps.gitversion.outputs.major }}"
           echo "Minor: ${{ steps.gitversion.outputs.minor }}"

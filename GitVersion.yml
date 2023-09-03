@@ -1,6 +1,5 @@
-mode: Mainline
+mode: ContinuousDelivery
 branches:
-  master:
-    regex: ^latest$
+  master: main
   pull-request:
     tag: pr

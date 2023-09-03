@@ -10,7 +10,7 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <PackageProjectUrl>https://github.com/sanderobdeijn/EndpointTestDataGenerator</PackageProjectUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-
+        <NoWarn>CS1591</NoWarn>
         <MinVerTagPrefix>v</MinVerTagPrefix>
         <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>

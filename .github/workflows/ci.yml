@@ -28,7 +28,8 @@ jobs:
       - name: Use GitVersion
         id: gitversion # step id used as reference for output values
         uses: gittools/actions/gitversion/execute@v0.9.7
-      - run: |
+      - name: Show versions
+        run: |
           echo "Major: ${{ steps.gitversion.outputs.major }}"
           echo "Minor: ${{ steps.gitversion.outputs.minor }}"
           echo "Patch: ${{ steps.gitversion.outputs.patch }}"
@@ -59,7 +60,7 @@ jobs:
           echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.commitsSinceVersionSource }}"
           echo "CommitsSinceVersionSourcePadded: ${{ steps.gitversion.outputs.commitsSinceVersionSourcePadded }}"
           echo "CommitDate: ${{ steps.gitversion.outputs.commitDate }}"
-      - name: Install dependencies
+      - name: Restore dependencies
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore

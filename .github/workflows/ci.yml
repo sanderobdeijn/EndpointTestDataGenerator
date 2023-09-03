@@ -1,6 +1,15 @@
 ﻿name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      
+permissions:
+  contents: read
 
 env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1

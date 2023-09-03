@@ -7,28 +7,45 @@ on:
   pull_request:
     branches:
       - main
+      
 permissions:
   contents: read
 
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
+  DOTNET_NOLOGO: true
+  NuGetDirectory: ${{ github.workspace}}/nuget
+
 jobs:
   build:
+    runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
-    runs-on: windows-2022
+      matrix:
+        dotnet-version: [ '6.0.x' ]
+        
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 0      
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+          source-url: https://nuget.pkg.github.com/sanderobdeijn/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.7
+        uses: gittools/actions/gitversion/setup@v0.10.2
         with:
-          versionSpec: '5.11.1'
-          
+          versionSpec: '5.x'
       - name: Use GitVersion
         id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.9.7
-      - run: |
+        uses: gittools/actions/gitversion/execute@v0.10.2
+        with:
+          useConfigFile: true
+      - name: Display GitVersion outputs
+        run: |
           echo "Major: ${{ steps.gitversion.outputs.major }}"
           echo "Minor: ${{ steps.gitversion.outputs.minor }}"
           echo "Patch: ${{ steps.gitversion.outputs.patch }}"
@@ -49,6 +66,7 @@ jobs:
           echo "FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
           echo "InformationalVersion: ${{ steps.gitversion.outputs.informationalVersion }}"
           echo "BranchName: ${{ steps.gitversion.outputs.branchName }}"
+          echo "EscapedBranchName: ${{ steps.gitversion.outputs.escapedBranchName }}"
           echo "Sha: ${{ steps.gitversion.outputs.sha }}"
           echo "ShortSha: ${{ steps.gitversion.outputs.shortSha }}"
           echo "NuGetVersionV2: ${{ steps.gitversion.outputs.nuGetVersionV2 }}"
@@ -58,12 +76,23 @@ jobs:
           echo "VersionSourceSha: ${{ steps.gitversion.outputs.versionSourceSha }}"
           echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.commitsSinceVersionSource }}"
           echo "CommitsSinceVersionSourcePadded: ${{ steps.gitversion.outputs.commitsSinceVersionSourcePadded }}"
+          echo "UncommittedChanges: ${{ steps.gitversion.outputs.uncommittedChanges }}"
           echo "CommitDate: ${{ steps.gitversion.outputs.commitDate }}"
-      - name: Build and Test
-        run: ./Build.ps1
-        shell: pwsh
-      - name: Artifacts
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
+      - name: Upload dotnet test results
         uses: actions/upload-artifact@v3
         with:
-          name: artifacts
-          path: artifacts/**/*
+          name: dotnet-results-${{ matrix.dotnet-version }}
+          path: TestResults-${{ matrix.dotnet-version }}
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
+      - name: Create the package
+        run: dotnet pack --configuration Release /p:Version=${{ steps.gitversion.outputs.nuGetVersion }} ./src/EndpointTestDataGenerator/EndpointTestDataGenerator.csproj --output ${{ env.NuGetDirectory }}
+      - name: Publish NuGet package
+        run: |
+          dotnet nuget push "${{ env.NuGetDirectory }}/*.nupkg" --api-key "${{ secrets.NUGET_AUTH_TOKEN }}" --source https://api.nuget.org/v3/index.json --skip-duplicate

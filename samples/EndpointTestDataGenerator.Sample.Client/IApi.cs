@@ -5,9 +5,18 @@ namespace EndpointTestDataGenerator.Sample.Client;
 
 public interface IApi
 {
-    [Get("/Test")]
-    Task<IEnumerable<WeatherForecast>> Get();
+    [Get("/test")]
+    Task<IEnumerable<TestDto>> Get();
     
-    [Get("/Test/{input}")]
-    Task<string> GetTest(string input);
+    [Get("/test/{id}")]
+    Task<TestDto> GetTest(Guid id);
+    
+    [Post("/test")]
+    Task<TestDto> CreateTest(TestDto test);
+    
+    [Put("/test/{id}")]
+    Task<TestDto> UpdateTest(Guid id, TestDto test);
+    
+    [Delete("/test/{id}")]
+    Task DeleteTest(Guid id);
 }

@@ -1,31 +1,46 @@
+using System.Collections;
+using System.Net;
 using EndpointTestDataGenerator.Sample.Client;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Refit;
 
 namespace EndpointTestDataGenerator.Sample.Tests;
 
-public class GeneratedTests
+public class NotAuthenticatedTests
 {
     [Theory]
-    [ClassData(typeof(TestScenarioGenerator))]
-    public async Task GeneratedTestWithClassData(TestScenario scenario)
+    [ClassData(typeof(NotAuthenticatedTestScenario))]
+    public async Task MinimalTest_NotAuthenticated_ReturnUnauthorized(TestScenario scenario)
     {
-        await scenario.Act.Invoke();
+        // Act
+        var exception = await Record.ExceptionAsync(scenario.Act);
+        
+        // Assert
+        exception.Should().BeOfType<ApiException>().Which.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
     
-    [Theory]
-    [MemberData(nameof(GetTestScenarios))]
-    public async Task GeneratedTestWithMemberData(TestScenario scenario)
+    private class NotAuthenticatedTestScenario : IEnumerable<object[]>
     {
-        await scenario.Act.Invoke();
-    }
-    
-    public static IEnumerable<object[]> GetTestScenarios()
-    {
-        var application = new WebApplicationFactory<Program>();
+        public IEnumerator<object[]> GetEnumerator() => GetGeneratedTestScenarios().GetEnumerator();
 
-        foreach (var scenario in application.Include<Program, IApi>().Format())
+        private static IEnumerable<object[]> GetGeneratedTestScenarios()
         {
-            yield return scenario;
+            var application = CreateApplication();
+
+            var scenarios = application.Include<Program, IApi>().ToList();
+
+            foreach (var scenario in scenarios.Format())
+            {
+                yield return scenario;
+            }
         }
+
+        private static WebApplicationFactory<Program> CreateApplication() =>
+            new WebApplicationFactory<Program>()
+                .WithWebHostBuilder(builder => {});
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
+
